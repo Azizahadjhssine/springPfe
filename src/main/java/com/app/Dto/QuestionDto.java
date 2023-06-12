@@ -20,7 +20,6 @@ public class QuestionDto {
 	private String category;
 	private String description;
 	private String value;
-	
 	private EtapeDto etapeDto;
 	
 	
@@ -30,6 +29,8 @@ public class QuestionDto {
 		.category(question.getCategory())
 		.description(question.getDescription())
 		.value(question.getValue())
+		//.idChamp(question.getIdChamp())
+
         .etapeDto(EtapeDto.fromEntity(question.getEtape()))
         .build();
 
@@ -40,6 +41,8 @@ public class QuestionDto {
 				.category(request.getCategory())
 				.description(request.getDescription())
 				.value(request.getValue())
+				//.idChamp(request.getIdChamp())
+
 				.etape(EtapeDto.toEntity(request.getEtapeDto()))
 				.build();
 		}

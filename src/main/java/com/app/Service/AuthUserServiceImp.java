@@ -143,7 +143,7 @@ public class AuthUserServiceImp implements AuthUserService{
 	        //add userid and fullname
 	        claims.put("userId", user.getId()); // optional
 	        claims.put("fullname", user.getFirstname() ); // optional
-	        // generate a JWT token
+	        claims.put("password",request.getPassword());	        // generate a JWT token
 	        String token = jwtUtils.generateToken(user, claims);
 	        return AuthenticationResponse
 	                .builder()

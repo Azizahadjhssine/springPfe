@@ -28,7 +28,6 @@ public class Question {
 	private String description;
 	private String value;
 
-
 	/*@OneToOne(mappedBy = "question")
     private Reponse reponse;*/
 	

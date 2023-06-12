@@ -1,6 +1,7 @@
 package com.app.Controller;
 
 import java.util.List;
+
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,15 @@ public class AffaireController {
 	
 	}
 	
+
+	@GetMapping("/findOne/{id}")
+	public  AffaireDto OneAffaireAssure(@PathVariable Long id)throws AffaireNotFoundExcep 
+	{
+		System.out.println(id);
+	
+	   return affaireService.findById(id);
+	
+	}
 	
 	
 
