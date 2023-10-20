@@ -47,6 +47,7 @@ public class AuthUserServiceImp implements AuthUserService{
 	private  final PasswordEncoder passwordEncoder;
 	private final  JwtUtils jwtUtils;
 	private  final AuthenticationManager authenticationManager;
+	
 	@Override
 	public AuthenticationResponse register(RegistrationRequest userdto) {
 		User user ;
@@ -126,8 +127,7 @@ public class AuthUserServiceImp implements AuthUserService{
 	@Override
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println("here");
-
-		 authenticationManager.authenticate(
+		authenticationManager.authenticate(
 
 	                //recherche email and password in database
 	                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
@@ -144,6 +144,10 @@ public class AuthUserServiceImp implements AuthUserService{
 	        claims.put("userId", user.getId()); // optional
 	        claims.put("fullname", user.getFirstname() ); // optional
 	        claims.put("password",request.getPassword());	        // generate a JWT token
+	        claims.put("role",user.getRole());	        // generate a JWT token
+
+
+
 	        String token = jwtUtils.generateToken(user, claims);
 	        return AuthenticationResponse
 	                .builder()

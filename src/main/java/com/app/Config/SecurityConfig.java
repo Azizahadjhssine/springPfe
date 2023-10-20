@@ -41,9 +41,13 @@ public class SecurityConfig  {
 	        http.csrf().disable();
 	        http.headers().frameOptions().disable();
 	        //http.formLogin();
-	        http.authorizeRequests().antMatchers("/**/auth/**",
+	        http.authorizeRequests().antMatchers(
+	        		"/**/auth/**",
 	        		"/**/role/**",
 	        		"/**/v1/**",
+	        		"/api/v1/general",
+	        		"/**/v1/Souscription/**",
+	        		"/send-email",
 	                // swagger
 	                "/v3/api-docs",
 	                "/v3/api-docs/**",
@@ -106,8 +110,11 @@ public class SecurityConfig  {
 	        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	        final CorsConfiguration config = new CorsConfiguration();
 
-	        config.setAllowCredentials(true);
+	        config.setAllowCredentials(true);//Autorise l'envoi de cookies et d'informations d'authentification dans les requêtes CORS.
 	        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+	        //Définit l'origine (domaine) qui est autorisée à accéder aux ressources de votre application. Dans cet exemple, 
+	        //il s'agit d'Angular exécuté sur http://localhost:4200
+	        
 	        config.setAllowedHeaders(Arrays.asList("*"));
 	        config.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PATCH", "OPTIONS"));
 

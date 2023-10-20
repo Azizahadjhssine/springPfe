@@ -1,5 +1,7 @@
 package com.app.CompagnyController;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,6 @@ public String save( @RequestBody DataPrice dtp )
 {
 	//System.out.println(dtomp.getEnfants().size());
 	//System.out.println("hello");
-	return spvieService.getpriceTest(dtp);}
+	return spvieService.getpriceTest(dtp);
+	}
 }

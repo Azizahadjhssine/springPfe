@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import com.app.CompagnyService.AlptisService;
 import com.app.Dto.EnfantDto;
 import com.app.Dto.RequestAlptisDto;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Service
@@ -108,7 +110,7 @@ public class AlptisServiceImpl implements AlptisService{
 		
 		String jsonString2 = "{" +
 			    "\"donnees_tarifantes\": {" +
-			    "\"date_effet\":\"2023-07-01\"," +
+			    "\"date_effet\":\"2023-09-01\"," +
 			    "\"assures\": {" +
 			    "\"adherent\": {" +
 			    "\"departement\":\"68\"," +
@@ -162,7 +164,7 @@ public class AlptisServiceImpl implements AlptisService{
 		 HttpHeaders headers = new HttpHeaders();
 		 headers.setContentType(MediaType.APPLICATION_JSON);
 	     headers.set("X-Alptis-Api-Key", apiKey);
-		 HttpEntity<String> entity = new HttpEntity<String>(jsonString,headers);
+		 HttpEntity<String> entity = new HttpEntity<String>(jsonString2,headers);
 		 String answer = restTemplate.postForObject(url, entity, String.class);		
 		
 	
@@ -199,6 +201,12 @@ public class AlptisServiceImpl implements AlptisService{
 	
 	@Override
 	public String getTarifAlptis(RequestAlptisDto ra) {
+		 int alptiscompagnie_id = 7;
+		 String listeformule="";
+	     String produits_alptis="";
+	      int z=0;
+        List<String> pricesAndLevels = new ArrayList<>();
+
 	    String[] tableauElements = {"HOSPITALISATION", "DENTAIRE_OPTIQUE_AUDIOPROTHESE", "BIEN_ETRE"};
 	    int n = tableauElements.length;
 	    System.out.println(n);
@@ -245,7 +253,57 @@ public class AlptisServiceImpl implements AlptisService{
       int departementt =ra.getCodePostal()/ 1000;
 
       String responseTarif=tarifAlptis(ra.getDateEffet(),departementt,ra.getDateAssure(),regimeAssure,env,env1,w);
-		return responseTarif;
+		
+      //////////
+   try {
+		    ObjectMapper objectMapper = new ObjectMapper();
+		    JsonNode jsonNode = objectMapper.readTree(responseTarif);
+		   
+		    // Extrait l'array "Prices"
+          JsonNode pricesNode = jsonNode.get("tarifs");
+       //  int num=pricesAndLevels[z]["numero"];
+        // int np=$tarr[z]["numero"];
+          // Crée une liste pour stocker les prix et niveaux
+          
+          for (JsonNode priceNode : pricesNode) {
+              String level = priceNode.get("Level").asText();
+              double price = priceNode.get("Price").asDouble();
+              
+              
+              //String  niveaualptis="N"+z;
+              double np=priceNode.get("numero").asDouble();;
+              String tari=priceNode.get("prime_formule_de_base").asText()+priceNode.get("montant_cotisation_association").asText();
+               
+              if(!env.isEmpty()) {
+            	  tari=tari+priceNode.get("montant_remise_couple").asText();
+              }
+              
+              String renfort="[";
+              String x="";
+              //String  garanties="";
+             //String pdf_cdg=""; 
+             //String pdf_plaque="";
+           
+
+              
+              String priceAndLevel = "Level: "+level + ", Price: " + price;
+              pricesAndLevels.add(priceAndLevel);
+              
+              // Afficher les prix et niveaux
+              for (String priceAndLeveli : pricesAndLevels) {
+                  System.out.println(priceAndLeveli);
+              }
+
+          }
+		    
+		} catch (Exception e) {
+			  e.printStackTrace();
+	            System.out.println("Problème lors du décodage JSON");
+	        
+		    return null;
+		}
+      ////////////////
+      return responseTarif;
 	}
 	
 	

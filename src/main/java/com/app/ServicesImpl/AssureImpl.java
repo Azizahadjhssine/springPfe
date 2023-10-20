@@ -53,7 +53,7 @@ public class AssureImpl implements AssureService{
 	
 		return assureRepository.findById(id).map(AssureDto::fromEntity)
         		//map:  
-                .orElseThrow(() -> new EntityNotFoundException("No CONJOINT  was found with the provided ID"));
+                .orElseThrow(() -> new EntityNotFoundException("No Assure  was found with the provided ID"));
 	}
 
 	

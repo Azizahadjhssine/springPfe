@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.CompagnyService.NeolianeService;
+import com.app.Dto.DataPrice;
 import com.app.Dto.EnfantDto;
 import com.app.Dto.RequestNeolianeDto;
 
@@ -18,12 +19,11 @@ public class NeolianeController {
 	@Autowired
 	private NeolianeService NeolianeService;
 
-
 	@PostMapping("/Price")
-	public String save( @RequestBody RequestNeolianeDto dn ) 
+	public String save( @RequestBody DataPrice dtp ) 
 
 	{
 		
-		return NeolianeService.price(dn);}
+		return NeolianeService.price(dtp);}
 	}
 

@@ -150,6 +150,7 @@ public class AffaireImpl implements AffaireService{
 			        if(c!=null) {
 			        	 //Long conjointId=c.getId();
 			             aff.setConjoint(c);
+			             System.out.println("cc"+c);
 			        }else {
 			        	Conjoint cSaved=conjRepository.save(conj); 
 			        	aff.setConjoint(cSaved);

@@ -17,13 +17,13 @@ import lombok.Setter;
 public class DataPrice {
 			private  String PostCode;
 		    private  String dateAssure;
-		    private int codeproduit;
-		    private  String nomProduit;
-		    private  int comm;
+		  
 		    private  String AssureRegime;
 		    private String dateEffet;
 			private ConjointDto conjoint;
 			private Set<EnfantDto> enfant;
 
-		
+			 // private int codeproduit;//8
+			   // private  String nomProduit;
+			   // private  int comm;//14
 }

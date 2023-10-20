@@ -31,7 +31,7 @@ public class AffaireDto {
 	
 	private SouscriptionDto souscriptionDto;       //oneToOne
 	private AssureDto assureDto;                    //ManyToOne
-	@Nullable
+	//@Nullable
 	private ConjointDto conjointDto;                   //ManyToOne
 	
 	private Set <EnfantDto>enfants;
@@ -121,21 +121,7 @@ public class AffaireDto {
 				//affaireDto.setEnfants(EnfantDto.fromEntity(affaire.getEnfants()));
 				return affaire;
 		
-		/*Affaire affaire = new Affaire();
-		BeanUtils.copyProperties(request, affaire);
-		affaire.setAssure(AssureDto.toEntity(request.assureDto));
-		affaire.setConjoint(ConjointDto.toEntity(request.conjointDto));
-		affaire.setSouscription(SouscriptionDto.toEntity(request.getSouscriptionDto()));
-		Set<Enfant> enfants = new HashSet();
-		for(EnfantDto enfDto: request.getEnfants()) {
-			Enfant enfant = EnfantDto.toEntity(enfDto);
-			enfants.add(enfant);
-		}
 		
-		affaire.setEnfants(enfants);
-		System.out.print("dto "+ request.getEnfants().size());
-		System.out.print("entity" + affaire.getEnfants().size());
-		return affaire;*/
 	}
 	
 
